@@ -1,0 +1,96 @@
+@import '../../../Constants';
+
+.hud-container {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+  text-shadow: 2px 2px 0 #000000;
+
+  .hud-panel {
+    width: 60%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #3a4a59;
+    color: #ecf0f1;
+    border: 4px solid #212a33;
+    border-radius: 24px 4px 24px 4px;
+    padding: 2%;
+    box-shadow: rgba(50, 50, 93, 0.8) 0 30px 60px -12px inset, rgba(0, 0, 0, 0.6) 0px 18px 36px -18px inset, 5px 5px 2px 0px rgba(0, 0, 0, 0.45);
+
+    .en-tete-hud {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .vie {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 4%;
+
+      .barre-vie {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        font-size: max(calc($text-min*2/3), calc($taille-texte*2/3));
+
+        .titre-hp {
+          font-weight: bolder;
+        }
+
+        .barre-vide {
+          width: 50%;
+          height: 50%;
+          background-color: #e5e5e5;
+          position: relative;
+          margin-left: 5px;
+          top: 2px;
+          flex: 1;
+          border: 3px #222 solid;
+          box-shadow: rgba(0, 0, 0, 0.15) 10px 0 15px;
+
+          .barre-remplie {
+            position: absolute;
+            bottom: 0;
+            height: 100%;
+            transition: width 1s ease-out;
+
+            &.vie-pleine {
+              background: linear-gradient(0deg, rgb(0, 150, 0) 0%, rgba(0,255,0,1) 50%, rgb(128, 255, 128) 100%);
+            }
+
+            &.vie-moyenne {
+              background: linear-gradient(0deg, rgb(191, 80, 0) 0%, rgb(255, 106, 0) 50%, rgb(255, 181, 128) 100%);
+            }
+
+            &.vie-critique {
+              background: linear-gradient(0deg, rgb(150, 0, 0) 0%, rgba(255, 0,0,1) 50%, rgb(255, 128, 128) 100%);
+            }
+          }
+        }
+
+        .barre-remplie, .barre-vide {
+          border-radius: 20px;
+        }
+      }
+    }
+  }
+
+
+  &.hud-adversaire-container {
+
+    .hud-panel {
+      height: 30%;
+    }
+  }
+}

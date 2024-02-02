@@ -1,0 +1,43 @@
+@import '../../../Constants';
+
+.cote {
+  display: flex;
+  flex-direction: row;
+  height: 50%;
+
+  .sprite-pokemon-container {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .sprite-pokemon {
+      height: 100%;
+      aspect-ratio: 1;
+      position: absolute;
+      image-rendering: pixelated;
+    }
+  }
+
+
+  &.cote-joueur {
+
+    .sprite-pokemon {
+      height: 110%;
+      right: -10%;
+      top: -20%;
+    }
+  }
+
+
+  &.cote-adversaire {
+    flex-direction: row-reverse;
+
+    .sprite-pokemon {
+      height: 80%;
+      right: 25%;
+      top: 10%;
+    }
+  }
+}

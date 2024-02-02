@@ -1,0 +1,46 @@
+@import '../../Constants';
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  color: #fff;
+  position: relative;
+
+  .logo-pokemon-menu {
+    height: 40%;
+    margin-bottom: 10%;
+  }
+
+  .bouton-jouer {
+    padding: 1% 16%;
+    background-color: rgba(50, 59, 65, 0.5);
+    color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.5s ease, color 0.3s ease;
+    font-family: "Pokemon Classic", serif;
+    font-size: max(calc($text-min*1.2), calc($taille-texte*1.2));
+    letter-spacing: 0.5rem;
+    border: 2px solid rgba(27, 29, 31, 0.75);
+
+    &:hover {
+      background-color: rgba(98, 116, 128, 0.5);
+    }
+
+    &:active {
+      background-color: rgba(50, 59, 65, 0.5);
+    }
+  }
+
+  .arriere-plan-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 101%;
+    z-index: -10;
+  }
+}
