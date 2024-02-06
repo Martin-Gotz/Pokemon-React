@@ -73,9 +73,9 @@ export const fouetLianes: Capacite = {
 }
 
 // POKEMONS
-export const donneesPokemonJoueur: Pokemon = {
+export const Salameche: Pokemon = {
     numero: 4,
-    nom: 'Salamèche',
+    nom: 'Magicarpe',
     niveau: 5,
     type: 'Feu',
     attaque: 52,
@@ -83,15 +83,15 @@ export const donneesPokemonJoueur: Pokemon = {
     vitesse: 65,
     special: 50,
     hp: 39,
-    image: 'Charmander',
+    image: 'Magikarp',
     capacites: [
         lanceFlammes, eclair, hydrocanon, fouetLianes
     ],
 };
 
-export const donneesPokemonAdversaire: Pokemon = {
+export const Pikachu: Pokemon = {
     numero: 25,
-    nom: 'Pikachu',
+    nom: 'Psykokwak',
     niveau: 5,
     type: 'Electrique',
     attaque: 50,
@@ -99,7 +99,7 @@ export const donneesPokemonAdversaire: Pokemon = {
     vitesse: 60,
     special: 55,
     hp: 35,
-    image: 'Pikachu',
+    image: 'Psyduck',
     capacites: [
         lanceFlammes, eclair, hydrocanon, fouetLianes
     ],

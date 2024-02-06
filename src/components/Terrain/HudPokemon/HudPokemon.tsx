@@ -1,11 +1,20 @@
 import './HudPokemon.scss';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import Pokemon from "../../../models/Pokemon";
 
-const HudPokemon = ({typeCote, pokemon, vieRestante}) => {
+interface HudPokemonProps {
+    typeCote: 'joueur' | 'adversaire';
+    pokemon: Pokemon;
+    vieRestante: number;
+}
+
+const HudPokemon: React.FC<HudPokemonProps> = ({typeCote, pokemon, vieRestante}) => {
     const [pourcentageVie, setPourcentageVie] = useState(100);
 
     useEffect(() => {
-        setPourcentageVie((pokemon.hp/pokemon.hp_max)*100);
+        if (pokemon.hp_max){
+            setPourcentageVie((pokemon.hp/pokemon.hp_max)*100);
+        }
     }, [vieRestante]);
 
     return (

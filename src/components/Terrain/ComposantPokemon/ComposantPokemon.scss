@@ -14,8 +14,6 @@
 
     .sprite-pokemon {
       height: 100%;
-      aspect-ratio: 1;
-      position: absolute;
       image-rendering: pixelated;
     }
   }
@@ -25,8 +23,8 @@
 
     .sprite-pokemon {
       height: 110%;
-      right: -10%;
-      top: -20%;
+      margin-right: -25%;
+      margin-top: -20%;
     }
   }
 
@@ -35,9 +33,9 @@
     flex-direction: row-reverse;
 
     .sprite-pokemon {
-      height: 80%;
-      right: 25%;
-      top: 10%;
+      height: 75%;
+      margin-right: 10%;
+      margin-top: 5%;
     }
   }
 }

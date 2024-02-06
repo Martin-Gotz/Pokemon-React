@@ -1,7 +1,14 @@
-import './Pokemon.scss';
+import './ComposantPokemon.scss';
 import HudPokemon from "../HudPokemon/HudPokemon";
+import Pokemon from "../../../models/Pokemon";
+import React from "react";
 
-const Pokemon = ({typeCote, pokemon}) => {
+interface ComposantPokemonProps {
+    typeCote: 'joueur' | 'adversaire';
+    pokemon: Pokemon;
+}
+
+const ComposantPokemon: React.FC<ComposantPokemonProps> = ({typeCote, pokemon}) => {
 
     return (
         <div className={`cote cote-${typeCote}`}>
@@ -9,7 +16,7 @@ const Pokemon = ({typeCote, pokemon}) => {
                 {pokemon.hp > 0 && (
                     <img
                         className="sprite-pokemon"
-                        src={`/sprites/pokemon/${pokemon.image}_${typeCote === 'joueur' ? 'b' : 'f'}_a.gif`}
+                        src={`/sprites/pokemon/${pokemon.image}_${typeCote === 'joueur' ? 'b' : 'f'}.gif`}
                         alt={`sprite-pokemon-${typeCote}`}
                     />
                 )}
@@ -19,4 +26,4 @@ const Pokemon = ({typeCote, pokemon}) => {
     );
 }
 
-export default Pokemon;
+export default ComposantPokemon;
