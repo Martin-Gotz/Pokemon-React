@@ -3,19 +3,20 @@ import Terrain from "./components/Terrain/Terrain";
 import Interface from "./components/Interface/Interface";
 import React, {useEffect, useRef, useState} from "react";
 import Menu from "./components/Menu/Menu";
-import {Pikachu, Salameche} from "./data";
+import pokemons from "./data/dataPokemons";
 import Pokemon from "./models/Pokemon";
 import Capacite from "./models/Capacite";
 
 const App = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
-    const [jeuLance, setJeuLance] = useState(true);
+    const [jeuLance, setJeuLance] = useState<boolean>(false);
+    const [jeuFini, setJeuFini] = useState<boolean>(false);
 
     const [pokemonJoueur, setPokemonJoueur] = useState<Pokemon | null>(null);
     const [pokemonAdversaire, setPokemonAdversaire] = useState<Pokemon | null>(null);
 
-    const [numeroTour, setNumeroTour] = useState(1);
-    const [texteEnCours, setTexteEnCours] = useState("");
+    const [numeroTour, setNumeroTour] = useState<number>(1);
+    const [texteEnCours, setTexteEnCours] = useState<string>("");
 
     const initialiserPokemon = (donneesPokemon: Pokemon) => {
         return {
@@ -29,8 +30,8 @@ const App = () => {
     };
 
     useEffect(() => {
-        const donneesPokemonJoueur: Pokemon = Salameche;
-        const donneesPokemonAdversaire: Pokemon = Pikachu;
+        const donneesPokemonJoueur: Pokemon = pokemons.Pikachu;
+        const donneesPokemonAdversaire: Pokemon = pokemons.Pikachu;
 
         const initialPokemonJoueur = initialiserPokemon(donneesPokemonJoueur);
         const initialPokemonAdversaire = initialiserPokemon(donneesPokemonAdversaire);
@@ -38,7 +39,6 @@ const App = () => {
         setPokemonJoueur(initialPokemonJoueur);
         setPokemonAdversaire(initialPokemonAdversaire);
     }, []);
-
 
     const jouerAudio = async () => {
         if (audioRef.current) {
@@ -51,8 +51,21 @@ const App = () => {
         await jouerAudio();
     };
 
+    const finirCombat = async (gagnant: Pokemon, vaincu: Pokemon) => {
+        setTexteEnCours(`${vaincu.nom} est K.O.`);
+        await attente();
+        setTexteEnCours(`${gagnant.nom} remporte la victoire !`);
+        await attente();
+        setJeuFini(true);
+    }
+
+
+    const attente = async () => {
+        await new Promise(resolve => setTimeout(resolve, 2500));
+    }
+
     const decisionAttaque = async (idCapaciteChoisie: number) => {
-        if (pokemonJoueur && pokemonAdversaire) {
+        if (pokemonJoueur && pokemonAdversaire && !jeuFini) {
             const capaciteChoisieJoueur = pokemonJoueur.capacites.find(capacite => capacite.id === idCapaciteChoisie);
 
             if (capaciteChoisieJoueur && capaciteChoisieJoueur.pp > 0) {
@@ -65,8 +78,6 @@ const App = () => {
     };
 
     const jouerTour = async (capaciteChoisieJoueur: Capacite, capaciteChoisieAdversaire: Capacite) => {
-        console.log("Le tour " + numeroTour + " debute.");
-
         if (pokemonJoueur && pokemonAdversaire) {
             const joueurPlusRapide = pokemonJoueur.vitesse >= pokemonAdversaire.vitesse;
 
@@ -76,77 +87,84 @@ const App = () => {
 
             await attaquer(premier, second, capacitePremier);
 
-            await attaquer(second, premier, joueurPlusRapide ? capaciteChoisieAdversaire : capaciteSecond);
+            if (second.hp === 0) {
+                await finirCombat(premier, second);
+            }
+            else {
+                await attaquer(second, premier, joueurPlusRapide ? capaciteChoisieAdversaire : capaciteSecond);
 
-            setTexteEnCours("");
-            setNumeroTour(numeroTour + 1);
+                if (premier.hp === 0) {
+                    await finirCombat(second, premier);
+                }
+                else {
+                    setTexteEnCours("");
+                    setNumeroTour(numeroTour + 1);
+                }
+            }
         }
-    }
-
-    const attente = async () => {
-        await new Promise(resolve => setTimeout(resolve, 2500));
     }
 
     const attaquer = async (attaquant: Pokemon, defenseur: Pokemon, capacite: Capacite) => {
-        let manque = false;
+        if (attaquant.hp > 0) {
+            const manque = false;
 
-        setTexteEnCours(`${attaquant.nom} attaque avec ${capacite.nom}.`);
+            if (attaquant === pokemonJoueur) {
+                setTexteEnCours(`${attaquant.nom} attaque ${capacite.nom}.`);
+            }
+            else {
+                setTexteEnCours(`Le ${attaquant.nom} adverse attaque ${capacite.nom}.`);
+            }
+            decrementerPp(capacite);
 
-        decrementerPp(capacite);
-
-
-        if (manque) {
-            await attente();
-            setTexteEnCours(`Mais cela échoue.`);
-            await attente();
-        }
-        else {
-            const { degats, critique, efficacite } = resultatsDegats(attaquant, defenseur, capacite);
-            defenseur.hp = Math.max(defenseur.hp - degats, 0);
-
-            await attente();
-
-            if (critique) {
-                setTexteEnCours(`Coup critique !`);
+            if (manque) {
+                await attente();
+                setTexteEnCours(`Mais cela échoue.`);
                 await attente();
             }
+            else {
+                const { degats, critique, efficacite } = resultatsDegats(attaquant, defenseur, capacite);
+                defenseur.hp = Math.max(defenseur.hp - degats, 0);
 
-            if (efficacite === "peu-efficace") {
-                setTexteEnCours(`Ce n'est pas très efficace.`);
                 await attente();
-            }
-            else if (efficacite === "super-efficace") {
-                setTexteEnCours(`C'est super efficace !`);
-                await attente();
+
+                await afficherTextesAdditionnels(critique, efficacite)
             }
         }
     };
 
+    const decrementerPp = (capacite: Capacite) => {
+        capacite.pp = capacite.pp - 1;
+    };
+
     const resultatsDegats = (attaquant: Pokemon, defenseur: Pokemon, capacite: Capacite) => {
-        const { multiplicateurCritique, multiplicateurType } = calculerMultiplicateur(attaquant, defenseur, capacite);
+        const { multiplicateurCritique, multiplicateurType } = calculerMultiplicateurs(attaquant, defenseur, capacite);
 
         const degats = Math.floor(
-            (((
-                ((attaquant.niveau * 0.4 + 2) * attaquant.attaque * capacite.puissance)
-                /
-                (capacite.categorie === "physique" ? defenseur.defense : defenseur.special)
-            ) / 50) + 2) * multiplicateurCritique * multiplicateurType);
+            (
+                ((
+                    ((attaquant.niveau * 0.4 + 2) * attaquant.attaque * capacite.puissance)
+                    /
+                    (capacite.categorie === "physique" ? defenseur.defense : defenseur.special)
+                ) / 50) + 2
+            )
+            * multiplicateurCritique * multiplicateurType
+        );
 
-        let efficacite: "peu-efficace" | "" | "super-efficace" = multiplicateurType < 1 ? "peu-efficace" : multiplicateurType > 1 ? "super-efficace" : "";
+        const efficacite: "" | "peu-efficace" | "super-efficace" = multiplicateurType < 1 ? "peu-efficace" : multiplicateurType > 1 ? "super-efficace" : "";
 
         return { degats: degats > 0 ? degats : 0, critique: multiplicateurCritique !== 1, efficacite: efficacite };
     };
 
-    const calculerMultiplicateur = (attaquant: Pokemon, defenseur: Pokemon, capacite: Capacite) => {
+    const calculerMultiplicateurs = (attaquant: Pokemon, defenseur: Pokemon, capacite: Capacite) => {
         let multiplicateurCritique = 1;
 
         const T = (attaquant.vitesse/2) % 2 === 0 ? attaquant.vitesse/2 : attaquant.vitesse/2 + 1;
-        const TLimitee = T > 255 ? 255 : T;
+        const TPlafonee = T > 255 ? 255 : T;
 
         const nombreAleatoireCritique = Math.floor(Math.random() * 256);
 
-        if (nombreAleatoireCritique < TLimitee){
-            multiplicateurCritique = ((2*attaquant.niveau)+5)/(attaquant.niveau+5);
+        if (nombreAleatoireCritique < TPlafonee){
+            multiplicateurCritique = (( 2 * attaquant.niveau ) + 5 ) / ( attaquant.niveau + 5 );
         }
 
         let multiplicateurType = 1;
@@ -154,17 +172,24 @@ const App = () => {
         return { multiplicateurCritique: multiplicateurCritique, multiplicateurType: multiplicateurType };
     };
 
-    const decrementerPp = (capacite: Capacite) => {
-        capacite.pp = capacite.pp - 1;
-    };
+    const afficherTextesAdditionnels = async (critique: boolean, efficacite: "" | "peu-efficace" | "super-efficace") => {
+        if (critique) {
+            setTexteEnCours(`Coup critique !`);
+            await attente();
+        }
+
+        if (efficacite === "peu-efficace") {
+            setTexteEnCours(`Ce n'est pas très efficace.`);
+            await attente();
+        }
+        else if (efficacite === "super-efficace") {
+            setTexteEnCours(`C'est super efficace !`);
+            await attente();
+        }
+    }
 
     return (
         <div className={"pokemon-app"}>
-            <div className={"musique"}>
-                <audio ref={audioRef} controls loop>
-                    <source src="/audio/Wild-Battle.mp3" type="audio/mp3" />
-                </audio>
-            </div>
             <div className={"cadre-jeu"}>
                 { jeuLance ? (pokemonJoueur && pokemonAdversaire && (
                     <>
@@ -184,6 +209,11 @@ const App = () => {
                         <Menu onPlayButtonClick={lancerJeu} />
                     </>
                 )}
+            </div>
+            <div className={"musique"}>
+                <audio ref={audioRef} controls loop>
+                    <source src="/audio/Wild-Battle.mp3" type="audio/mp3" />
+                </audio>
             </div>
         </div>
     );

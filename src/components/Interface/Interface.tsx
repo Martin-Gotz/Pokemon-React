@@ -33,25 +33,6 @@ const Interface: React.FC<InterfaceProps> = ({pokemonJoueur, decisionAttaque, te
         return () => clearInterval(interval);
     }, [texteEnCours, index]);
 
-    /*
-    useEffect(() => {
-        let currentIndex = 0;
-        setText("");
-
-        const intervalId = setInterval(() => {
-            if (texteEnCours) {
-                setText((prevText) => prevText + texteEnCours[currentIndex]);
-                currentIndex++;
-
-                if (currentIndex === texteEnCours.length - 1) {
-                    clearInterval(intervalId);
-                }
-            }
-        }, speed);
-
-        return () => clearInterval(intervalId);
-    }, [texteEnCours, speed]);*/
-
     const obtenirCapaciteParId = (idCapacite: number): Capacite | undefined => {
         return pokemonJoueur.capacites.find(capacite => capacite.id === idCapacite);
     };
