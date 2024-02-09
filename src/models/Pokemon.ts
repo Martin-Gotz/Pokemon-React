@@ -1,10 +1,11 @@
 import Capacite from "./Capacite";
+import Type from "./Type";
 
 interface Pokemon {
     numero: number;
     nom: string;
     niveau: number;
-    type: string;
+    type: Type;
     attaque: number;
     defense: number;
     vitesse: number;

@@ -1,5 +1,6 @@
 import Pokemon from "../models/Pokemon";
 import capacites from "./dataCapacites";
+import types from "./dataTypes";
 
 interface Pokemons {
     [key: string]: Pokemon;
@@ -10,7 +11,7 @@ const pokemons: Pokemons = {
         numero: 25,
         nom: 'Pikachu',
         niveau: 5,
-        type: 'Electrique',
+        type: types.electrique,
         attaque: 50,
         defense: 40,
         vitesse: 60,
@@ -26,7 +27,7 @@ const pokemons: Pokemons = {
         numero: 4,
         nom: 'Salameche',
         niveau: 5,
-        type: 'Feu',
+        type: types.feu,
         attaque: 52,
         defense: 43,
         vitesse: 65,
@@ -43,7 +44,7 @@ const pokemons: Pokemons = {
         numero: 7,
         nom: 'Carapuce',
         niveau: 5,
-        type: 'Eau',
+        type: types.eau,
         attaque: 48,
         defense: 65,
         vitesse: 43,
@@ -58,7 +59,7 @@ const pokemons: Pokemons = {
         numero: 1,
         nom: 'Bulbizarre',
         niveau: 5,
-        type: 'Plante',
+        type: types.plante,
         attaque: 49,
         defense: 49,
         vitesse: 45,

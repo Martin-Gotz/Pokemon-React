@@ -6,6 +6,7 @@ import Menu from "./components/Menu/Menu";
 import pokemons from "./data/dataPokemons";
 import Pokemon from "./models/Pokemon";
 import Capacite from "./models/Capacite";
+import Type from "./models/Type";
 
 const App = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -30,7 +31,7 @@ const App = () => {
     };
 
     useEffect(() => {
-        const donneesPokemonJoueur: Pokemon = pokemons.Pikachu;
+        const donneesPokemonJoueur: Pokemon = pokemons.Salameche;
         const donneesPokemonAdversaire: Pokemon = pokemons.Pikachu;
 
         const initialPokemonJoueur = initialiserPokemon(donneesPokemonJoueur);
@@ -106,7 +107,6 @@ const App = () => {
 
     const attaquer = async (attaquant: Pokemon, defenseur: Pokemon, capacite: Capacite) => {
         if (attaquant.hp > 0) {
-            const manque = false;
 
             if (attaquant === pokemonJoueur) {
                 setTexteEnCours(`${attaquant.nom} attaque ${capacite.nom}.`);
@@ -116,9 +116,11 @@ const App = () => {
             }
             decrementerPp(capacite);
 
+            const manque = Math.random() > capacite.precision / 100;
+
             if (manque) {
                 await attente();
-                setTexteEnCours(`Mais cela échoue.`);
+                setTexteEnCours(`Mais ${attaquant.nom} rate.`);
                 await attente();
             }
             else {
@@ -127,7 +129,7 @@ const App = () => {
 
                 await attente();
 
-                await afficherTextesAdditionnels(critique, efficacite)
+                await afficherTextesAdditionnels(critique, efficacite, defenseur)
             }
         }
     };
@@ -150,29 +152,49 @@ const App = () => {
             * multiplicateurCritique * multiplicateurType
         );
 
-        const efficacite: "" | "peu-efficace" | "super-efficace" = multiplicateurType < 1 ? "peu-efficace" : multiplicateurType > 1 ? "super-efficace" : "";
+        const efficacite: "" | "non-efficace" | "peu-efficace" | "super-efficace" = multiplicateurType === 0
+            ? "non-efficace" : multiplicateurType < 1
+            ? "peu-efficace" : multiplicateurType > 1
+            ? "super-efficace" : "";
 
         return { degats: degats > 0 ? degats : 0, critique: multiplicateurCritique !== 1, efficacite: efficacite };
     };
 
     const calculerMultiplicateurs = (attaquant: Pokemon, defenseur: Pokemon, capacite: Capacite) => {
-        let multiplicateurCritique = 1;
 
+        const multiplicateurCritique = calculerMultiplicateurCritique(attaquant);
+        const multiplicateurType = calculerMultiplicateurType(defenseur, capacite);
+
+        return { multiplicateurCritique: multiplicateurCritique, multiplicateurType: multiplicateurType };
+    };
+
+    const calculerMultiplicateurCritique = (attaquant: Pokemon) => {
         const T = (attaquant.vitesse/2) % 2 === 0 ? attaquant.vitesse/2 : attaquant.vitesse/2 + 1;
         const TPlafonee = T > 255 ? 255 : T;
 
         const nombreAleatoireCritique = Math.floor(Math.random() * 256);
 
-        if (nombreAleatoireCritique < TPlafonee){
-            multiplicateurCritique = (( 2 * attaquant.niveau ) + 5 ) / ( attaquant.niveau + 5 );
+        return nombreAleatoireCritique < TPlafonee
+            ? (( 2 * attaquant.niveau ) + 5 ) / ( attaquant.niveau + 5 ) : 1;
+    }
+
+    const calculerMultiplicateurType = (defenseur: Pokemon, capacite: Capacite) => {
+        const typeAttaquant: Type = capacite.type;
+        const typeDefenseur: Type = defenseur.type;
+
+        if (typeDefenseur.immunites.includes(typeAttaquant.nom)) {
+            return 0;
+        } else if (typeDefenseur.resistances.includes(typeAttaquant.nom)) {
+            return 0.5;
+        } else if (typeDefenseur.faiblesses.includes(typeAttaquant.nom)) {
+            return 2;
+        } else {
+            return 1;
         }
+    }
 
-        let multiplicateurType = 1;
 
-        return { multiplicateurCritique: multiplicateurCritique, multiplicateurType: multiplicateurType };
-    };
-
-    const afficherTextesAdditionnels = async (critique: boolean, efficacite: "" | "peu-efficace" | "super-efficace") => {
+    const afficherTextesAdditionnels = async (critique: boolean, efficacite: "" | "non-efficace" | "peu-efficace" | "super-efficace", defenseur: Pokemon) => {
         if (critique) {
             setTexteEnCours(`Coup critique !`);
             await attente();
@@ -184,6 +206,10 @@ const App = () => {
         }
         else if (efficacite === "super-efficace") {
             setTexteEnCours(`C'est super efficace !`);
+            await attente();
+        }
+        else if (efficacite === "non-efficace") {
+            setTexteEnCours(`Cela n'affecte pas le ${defenseur.nom} adverse`);
             await attente();
         }
     }
@@ -212,7 +238,7 @@ const App = () => {
             </div>
             <div className={"musique"}>
                 <audio ref={audioRef} controls loop>
-                    <source src="/audio/Wild-Battle.mp3" type="audio/mp3" />
+                    <source src={`/audio/Wild-Battle.mp3`} type="audio/mp3" />
                 </audio>
             </div>
         </div>
