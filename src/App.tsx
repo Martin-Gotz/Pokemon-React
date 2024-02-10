@@ -2,11 +2,11 @@ import './App.scss';
 import Terrain from "./components/Terrain/Terrain";
 import Interface from "./components/Interface/Interface";
 import React, {useEffect, useRef, useState} from "react";
-import Menu from "./components/Menu/Menu";
 import pokemons from "./data/dataPokemons";
 import Pokemon from "./models/Pokemon";
 import Capacite from "./models/Capacite";
 import Type from "./models/Type";
+import ChoixPokemon from "./components/ChoixPokemon/ChoixPokemon";
 
 const App = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -31,8 +31,9 @@ const App = () => {
     };
 
     useEffect(() => {
-        const donneesPokemonJoueur: Pokemon = pokemons.Salameche;
-        const donneesPokemonAdversaire: Pokemon = pokemons.Pikachu;
+        console.log(pokemons)
+        const donneesPokemonJoueur: Pokemon = pokemons[0];
+        const donneesPokemonAdversaire: Pokemon = pokemons[1];
 
         const initialPokemonJoueur = initialiserPokemon(donneesPokemonJoueur);
         const initialPokemonAdversaire = initialiserPokemon(donneesPokemonAdversaire);
@@ -232,7 +233,8 @@ const App = () => {
                     </>
                 )) : (
                     <>
-                        <Menu onPlayButtonClick={lancerJeu} />
+                        {/*<Menu onPlayButtonClick={lancerJeu} />*/}
+                        <ChoixPokemon  validationChoixPokemon={lancerJeu}/>
                     </>
                 )}
             </div>
