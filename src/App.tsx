@@ -1,8 +1,7 @@
 import './App.scss';
 import Terrain from "./components/Terrain/Terrain";
 import Interface from "./components/Interface/Interface";
-import React, {useEffect, useRef, useState} from "react";
-import pokemons from "./data/dataPokemons";
+import React, {useRef, useState} from "react";
 import Pokemon from "./models/Pokemon";
 import Capacite from "./models/Capacite";
 import Type from "./models/Type";
@@ -30,17 +29,14 @@ const App = () => {
         };
     };
 
-    useEffect(() => {
-        console.log(pokemons)
-        const donneesPokemonJoueur: Pokemon = pokemons[0];
-        const donneesPokemonAdversaire: Pokemon = pokemons[1];
-
-        const initialPokemonJoueur = initialiserPokemon(donneesPokemonJoueur);
-        const initialPokemonAdversaire = initialiserPokemon(donneesPokemonAdversaire);
+    const validerChoixPokemon = (pokemonSelectionne: Pokemon) => {
+        const initialPokemonJoueur = initialiserPokemon(pokemonSelectionne);
+        const initialPokemonAdversaire = initialiserPokemon(pokemonSelectionne);
 
         setPokemonJoueur(initialPokemonJoueur);
         setPokemonAdversaire(initialPokemonAdversaire);
-    }, []);
+        setJeuLance(true);
+    }
 
     const jouerAudio = async () => {
         if (audioRef.current) {
@@ -63,7 +59,7 @@ const App = () => {
 
 
     const attente = async () => {
-        await new Promise(resolve => setTimeout(resolve, 2500));
+        await new Promise(resolve => setTimeout(resolve, 2300));
     }
 
     const decisionAttaque = async (idCapaciteChoisie: number) => {
@@ -117,9 +113,12 @@ const App = () => {
             }
             decrementerPp(capacite);
 
-            const manque = Math.random() > capacite.precision / 100;
-
-            if (manque) {
+            if (capacite.categorie === 'statut') {
+                await attente();
+                setTexteEnCours(`Mais rien ne se passe.`);
+                await attente();
+            }
+            else if (Math.random() > capacite.precision / 100) {
                 await attente();
                 setTexteEnCours(`Mais ${attaquant.nom} rate.`);
                 await attente();
@@ -141,7 +140,6 @@ const App = () => {
 
     const resultatsDegats = (attaquant: Pokemon, defenseur: Pokemon, capacite: Capacite) => {
         const { multiplicateurCritique, multiplicateurType } = calculerMultiplicateurs(attaquant, defenseur, capacite);
-
         const degats = Math.floor(
             (
                 ((
@@ -234,7 +232,7 @@ const App = () => {
                 )) : (
                     <>
                         {/*<Menu onPlayButtonClick={lancerJeu} />*/}
-                        <ChoixPokemon  validationChoixPokemon={lancerJeu}/>
+                        <ChoixPokemon validerChoixPokemon={validerChoixPokemon}/>
                     </>
                 )}
             </div>

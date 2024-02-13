@@ -14,6 +14,7 @@ const Interface: React.FC<InterfaceProps> = ({pokemonJoueur, decisionAttaque, te
     const [capaciteSurvolee, setCapaciteSurvolee] = useState<Capacite | null>(null);
     const [text, setText] = useState("");
     const [index, setIndex] = useState(0);
+    const vitesseTexte = 10;
 
     useEffect(() => {
         setIndex(0);
@@ -28,7 +29,7 @@ const Interface: React.FC<InterfaceProps> = ({pokemonJoueur, decisionAttaque, te
             } else {
                 clearInterval(interval);
             }
-        }, 20);
+        }, vitesseTexte);
 
         return () => clearInterval(interval);
     }, [texteEnCours, index]);

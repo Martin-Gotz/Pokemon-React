@@ -1,0 +1,28 @@
+.stat-bar {
+  height: 15%;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+
+  .nom-stat {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    font-size: 0.5em;
+    margin-bottom: 4px;
+  }
+
+  .conteneur-barre {
+    background-color: lightgray;
+    height: 40%;
+    width: 50%;
+
+    .barre {
+      height: 100%;
+      box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
+    }
+  }
+}

@@ -8,7 +8,7 @@ interface Capacite {
     pp_max?: number;
     puissance: number;
     precision: number;
-    categorie: 'physique' | 'special';
+    categorie: 'physique' | 'special' | 'statut';
 }
 
 export default Capacite;

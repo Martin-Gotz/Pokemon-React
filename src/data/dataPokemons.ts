@@ -76,93 +76,24 @@ const pokemons: Pokemons = {
     },
 
     Magicarpe: {
-        numero: 1,
+        numero: 129,
         nom: 'Magicarpe',
         niveau: 5,
         type: types.eau,
-        attaque: 49,
-        defense: 49,
-        vitesse: 45,
-        special: 65,
-        hp: 45,
+        attaque: 10,
+        defense: 55,
+        vitesse: 80,
+        special: 20,
+        hp: 20,
         image: 'Magikarp',
         capacites: [
-            capacites.fouetLianes,
-            capacites.lanceSoleil,
+            capacites.trempette,
         ],
     },
 
-    Lucario: {
-        numero: 1,
-        nom: 'Lucario',
-        niveau: 5,
-        type: types.eau,
-        attaque: 49,
-        defense: 49,
-        vitesse: 45,
-        special: 65,
-        hp: 45,
-        image: 'Lucario',
-        capacites: [
-            capacites.fouetLianes,
-            capacites.lanceSoleil,
-        ],
-    },
-
-    Gallame: {
-        numero: 1,
-        nom: 'Gallame',
-        niveau: 5,
-        type: types.eau,
-        attaque: 49,
-        defense: 49,
-        vitesse: 45,
-        special: 65,
-        hp: 45,
-        image: 'Gallade',
-        capacites: [
-            capacites.fouetLianes,
-            capacites.lanceSoleil,
-        ],
-    },
-
-    Dracaufeu: {
-        numero: 6,
-        nom: 'Dracaufeu',
-        niveau: 5,
-        type: types.feu,
-        attaque: 78,
-        defense: 78,
-        vitesse: 100,
-        special: 85,
-        hp: 78,
-        image: 'Charizard',
-        capacites: [
-            capacites.lanceFlammes,
-            capacites.aileDAcier,
-        ],
-    },
-
-    Mewtwo: {
-        numero: 150,
-        nom: 'Mewtwo',
-        niveau: 70,
-        type: types.psychique,
-        attaque: 110,
-        defense: 90,
-        vitesse: 130,
-        special: 154,
-        hp: 106,
-        image: 'Mewtwo',
-        capacites: [
-            capacites.psyko,
-            capacites.lanceSoleil,
-        ],
-    },
-
-    Gyarados: {
+    Leviathor: {
         numero: 130,
-        nom: 'Gyarados',
+        nom: 'Leviathor',
         niveau: 20,
         type: types.eau,
         attaque: 125,
@@ -181,7 +112,7 @@ const pokemons: Pokemons = {
         numero: 65,
         nom: 'Alakazam',
         niveau: 40,
-        type: types.psychique,
+        type: types.psy,
         attaque: 50,
         defense: 45,
         vitesse: 120,
@@ -194,9 +125,9 @@ const pokemons: Pokemons = {
         ],
     },
 
-    Snorlax: {
+    Ronflex: {
         numero: 143,
-        nom: 'Snorlax',
+        nom: 'Ronflex',
         niveau: 30,
         type: types.normal,
         attaque: 110,
@@ -208,23 +139,6 @@ const pokemons: Pokemons = {
         capacites: [
             capacites.gigaImpact,
             capacites.eclateGriffe,
-        ],
-    },
-
-    Arcanin: {
-        numero: 59,
-        nom: 'Arcanin',
-        niveau: 30,
-        type: types.feu,
-        attaque: 110,
-        defense: 80,
-        vitesse: 95,
-        special: 80,
-        hp: 90,
-        image: 'Arcanine',
-        capacites: [
-            capacites.lanceFlammes,
-            capacites.hate,
         ],
     },
 
@@ -241,7 +155,6 @@ const pokemons: Pokemons = {
         image: 'Jigglypuff',
         capacites: [
             capacites.charme,
-            capacites.repos,
         ],
     },
 
@@ -275,7 +188,6 @@ const pokemons: Pokemons = {
         image: 'Caterpie',
         capacites: [
             capacites.dardVenin,
-            capacites.stringShot,
         ],
     },
 
@@ -292,7 +204,6 @@ const pokemons: Pokemons = {
         image: 'Weedle',
         capacites: [
             capacites.dardVenin,
-            capacites.mimiQueue,
         ],
     },
 
@@ -310,40 +221,6 @@ const pokemons: Pokemons = {
         capacites: [
             capacites.roulade,
             capacites.griffe,
-        ],
-    },
-
-    Mystherbe: {
-        numero: 43,
-        nom: 'Mystherbe',
-        niveau: 5,
-        type: types.plante,
-        attaque: 50,
-        defense: 55,
-        vitesse: 30,
-        special: 40,
-        hp: 45,
-        image: 'Oddish',
-        capacites: [
-            capacites.fouetLianes,
-            capacites.tenebres,
-        ],
-    },
-
-    Ptitard: {
-        numero: 54,
-        nom: 'Ptitard',
-        niveau: 5,
-        type: types.eau,
-        attaque: 65,
-        defense: 40,
-        vitesse: 90,
-        special: 45,
-        hp: 40,
-        image: 'Poliwag',
-        capacites: [
-            capacites.ebullition,
-            capacites.noeudHerbe,
         ],
     },
 };
