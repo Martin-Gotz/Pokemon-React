@@ -1,0 +1,22 @@
+.boite-textuelle {
+  width: 0;
+  height: 89%;
+  padding: 1% 2% 2%;
+  transition: width 0.2s linear;
+  background-color: rgba(91, 140, 140, 0.75);
+  z-index: 32;
+  position: absolute;
+
+  &.depliee {
+    width: 98%;
+    visibility: visible;
+  }
+
+  .icone-suivant {
+    position: absolute;
+    bottom: 4%;
+    right: 1%;
+    height: 15%;
+    aspect-ratio: 1;
+  }
+}

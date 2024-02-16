@@ -1,7 +1,10 @@
 import './InterfaceCombat.scss';
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Pokemon from "../../../models/Pokemon";
 import Capacite from "../../../models/Capacite";
+import BoutonCapacite from "../BoutonCapacite/BoutonCapacite";
+import InfosCapacite from "../InfosCapacite/InfosCapacite";
+import BoiteTextuelle from "../BoiteTextuelle/BoiteTextuelle";
 
 interface InterfaceProps {
     pokemonJoueur: Pokemon;
@@ -12,71 +15,40 @@ interface InterfaceProps {
 
 const InterfaceCombat: React.FC<InterfaceProps> = ({pokemonJoueur, decisionAttaque, texteEnCours}) => {
     const [capaciteSurvolee, setCapaciteSurvolee] = useState<Capacite | null>(null);
-    const [text, setText] = useState("");
-    const [index, setIndex] = useState(0);
-    const vitesseTexte = 10;
-
-    useEffect(() => {
-        setIndex(0);
-        setText("");
-    }, [texteEnCours]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (index < texteEnCours.length) {
-                setText((prev) => prev + texteEnCours.charAt(index));
-                setIndex((prev) => prev + 1);
-            } else {
-                clearInterval(interval);
-            }
-        }, vitesseTexte);
-
-        return () => clearInterval(interval);
-    }, [texteEnCours, index]);
 
     const obtenirCapaciteParId = (idCapacite: number): Capacite | undefined => {
         return pokemonJoueur.capacites.find(capacite => capacite.id === idCapacite);
     };
 
-    const handleCapaciteHover = (capacite: Capacite) => {
+    const gererCapaciteHover = (capacite: Capacite) => {
         setCapaciteSurvolee(capacite);
     };
 
-    const handleCapaciteOut = () => {
+    const gererCapaciteOut = () => {
         setCapaciteSurvolee(null);
     };
 
     return (
         <div className={"interface"} >
-            <div className={`boite boite-textuelle ${texteEnCours ? 'depliee' : ''}`}>
-                {text}
-                <svg className={"icone-suivant"} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#111">
-                    <polygon points="50 85, 100 0, 0 0"/>
-                </svg>
-            </div>
+
+            <BoiteTextuelle texteEnCours={texteEnCours}/>
+
             {!texteEnCours && (
                 <>
                     <div className={"boite boite-selection"}>
                         {pokemonJoueur.capacites.map((capacite, index) => (
-                            <div key={index} className={`bouton-capacite capacite-${index + 1} ${capacite.pp <= 0 ? "capacite-inactive" : ""}`}
-                                 onMouseOver={() => handleCapaciteHover(capacite)}
-                                 onMouseOut={handleCapaciteOut}
-                                 onClick={() => decisionAttaque(capacite.id)}
-                            >
-                                {capacite.nom}
-                            </div>
+                            <BoutonCapacite
+                                key={index}
+                                capacite={capacite}
+                                gererClic={() => decisionAttaque(capacite.id)}
+                                gererMouseOver={() => gererCapaciteHover(capacite)}
+                                gererMouseOut={gererCapaciteOut}
+                            />
                         ))}
                     </div>
                     <div className={"boite boite-information"}>
                         {capaciteSurvolee && (
-                            <>
-                                <div className={"type-capacite"}
-                                     style={{backgroundColor : capaciteSurvolee.type.couleur}}
-                                >
-                                    {capaciteSurvolee.type.nom}
-                                </div>
-                                <div className={"pp-capacite"}>{capaciteSurvolee.pp}/{obtenirCapaciteParId(capaciteSurvolee.id)?.pp_max}</div>
-                            </>
+                            <InfosCapacite capacite={capaciteSurvolee} obtenirCapaciteParId={obtenirCapaciteParId}/>
                         )}
                     </div>
                     <div className={"boite boite-information-fond"}></div>
