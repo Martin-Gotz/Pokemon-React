@@ -1,6 +1,6 @@
 import './PokemonGeneral.scss';
 import HudPokemon from "../HudPokemon/HudPokemon";
-import Pokemon from "../../models/Pokemon";
+import Pokemon from "../../../models/Pokemon";
 import React from "react";
 
 interface ComposantPokemonProps {

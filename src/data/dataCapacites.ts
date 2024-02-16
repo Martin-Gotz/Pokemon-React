@@ -80,7 +80,7 @@ const capacites: Capacites = {
         id: 4,
         nom: "Fouet Lianes",
         type: types.plante,
-        pp: 1,
+        pp: 15,
         puissance: 70,
         precision: 95,
         categorie: "physique"
@@ -109,7 +109,7 @@ const capacites: Capacites = {
     morsure: {
         id: 12,
         nom: "Morsure",
-        type: types.eau,
+        type: types.normal,
         pp: 25,
         puissance: 60,
         precision: 100,
@@ -184,7 +184,47 @@ const capacites: Capacites = {
         puissance: 30,
         precision: 90,
         categorie: "physique"
-    }
+    },
+
+    charge: {
+        id: 2,
+        nom: "Charge",
+        type: types.normal,
+        pp: 15,
+        puissance: 50,
+        precision: 100,
+        categorie: "physique"
+    },
+
+    tornade: {
+        id: 4,
+        nom: "Tornade",
+        type: types.vol,
+        pp: 10,
+        puissance: 40,
+        precision: 100,
+        categorie: "special"
+    },
+
+    picpic: {
+        id: 5,
+        nom: "Picpic",
+        type: types.vol,
+        pp: 35,
+        puissance: 35,
+        precision: 100,
+        categorie: "physique"
+    },
+
+    ecrasFace: {
+        id: 8,
+        nom: "Écras'Face",
+        type: types.sol,
+        pp: 10,
+        puissance: 40,
+        precision: 100,
+        categorie: "physique"
+    },
 };
 
 export default capacites;

@@ -1,7 +1,7 @@
 import './InterfaceCombat.scss';
 import React, {useEffect, useState} from "react";
-import Pokemon from "../../models/Pokemon";
-import Capacite from "../../models/Capacite";
+import Pokemon from "../../../models/Pokemon";
+import Capacite from "../../../models/Capacite";
 
 interface InterfaceProps {
     pokemonJoueur: Pokemon;

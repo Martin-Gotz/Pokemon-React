@@ -1,6 +1,6 @@
 import './HudPokemon.scss';
 import React, {useEffect, useState} from "react";
-import Pokemon from "../../models/Pokemon";
+import Pokemon from "../../../models/Pokemon";
 
 interface HudPokemonProps {
     typeCote: 'joueur' | 'adversaire';

@@ -1,6 +1,6 @@
 import './Terrain.scss';
 import PokemonGeneral from "../PokemonGeneral/PokemonGeneral";
-import Pokemon from "../../models/Pokemon";
+import Pokemon from "../../../models/Pokemon";
 import React from "react";
 
 interface TerrainProps {

@@ -1,5 +1,5 @@
-import Terrain from "../Terrain/Terrain";
-import InterfaceCombat from "../InterfaceCombat/InterfaceCombat";
+import Terrain from "./Terrain/Terrain";
+import InterfaceCombat from "./InterfaceCombat/InterfaceCombat";
 import React, {useState} from "react";
 import Pokemon from "../../models/Pokemon";
 import Capacite from "../../models/Capacite";

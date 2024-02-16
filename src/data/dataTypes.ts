@@ -60,7 +60,28 @@ const types: Types = {
         faiblesses: ['Eau', 'Plante', 'Combat', 'Sol', 'Acier'],
         resistances: ['Normal', 'Vol', 'Feu', 'Poison'],
         immunites: [],
-    }
+    },
+    vol: {
+        nom: 'Vol',
+        couleur: '#A890F0',
+        faiblesses: ['Électrique', 'Roche', 'Glace'],
+        resistances: ['Plante', 'Combat', 'Insecte'],
+        immunites: ['Sol'],
+    },
+    poison: {
+        nom: 'Poison',
+        couleur: '#A040A0',
+        faiblesses: ['Sol', 'Psychique'],
+        resistances: ['Combat', 'Fée', 'Plante', 'Insecte'],
+        immunites: [],
+    },
+    sol: {
+        nom: 'Sol',
+        couleur: '#E0C068',
+        faiblesses: ['Eau', 'Plante', 'Glace'],
+        resistances: ['Poison', 'Roche'],
+        immunites: ['Électrique'],
+    },
 };
 
 export default types;

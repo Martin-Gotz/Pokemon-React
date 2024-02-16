@@ -2,6 +2,7 @@ import Pokemon from "../models/Pokemon";
 import capacites from "./dataCapacites";
 import types from "./dataTypes";
 
+const niveauPokemons = 20;
 interface Pokemons {
     [key: string]: Pokemon;
 }
@@ -10,7 +11,7 @@ const pokemons: Pokemons = {
     Pikachu: {
         numero: 25,
         nom: 'Pikachu',
-        niveau: 5,
+        niveau: niveauPokemons,
         type: types.electrique,
         attaque: 50,
         defense: 40,
@@ -27,7 +28,7 @@ const pokemons: Pokemons = {
     Salameche: {
         numero: 4,
         nom: 'Salameche',
-        niveau: 5,
+        niveau: niveauPokemons,
         type: types.feu,
         attaque: 52,
         defense: 43,
@@ -45,7 +46,7 @@ const pokemons: Pokemons = {
     Carapuce: {
         numero: 7,
         nom: 'Carapuce',
-        niveau: 5,
+        niveau: niveauPokemons,
         type: types.eau,
         attaque: 48,
         defense: 65,
@@ -61,7 +62,7 @@ const pokemons: Pokemons = {
     Bulbizarre: {
         numero: 1,
         nom: 'Bulbizarre',
-        niveau: 5,
+        niveau: niveauPokemons,
         type: types.plante,
         attaque: 49,
         defense: 49,
@@ -75,10 +76,61 @@ const pokemons: Pokemons = {
         ],
     },
 
+    Rattata: {
+        numero: 19,
+        nom: 'Rattata',
+        niveau: niveauPokemons,
+        type: types.normal,
+        attaque: 56,
+        defense: 35,
+        vitesse: 72,
+        special: 25,
+        hp: 30,
+        image: 'Rattata',
+        capacites: [
+            capacites.charge,
+            capacites.viveAttaque,
+        ],
+    },
+
+    Pidgey: {
+        numero: 16,
+        nom: 'Roucool',
+        niveau: niveauPokemons,
+        type: types.vol,
+        attaque: 45,
+        defense: 40,
+        vitesse: 56,
+        special: 35,
+        hp: 40,
+        image: 'Pidgey',
+        capacites: [
+            capacites.tornade,
+            capacites.picpic,
+        ],
+    },
+
+    Ekans: {
+        numero: 23,
+        nom: 'Abo',
+        niveau: niveauPokemons,
+        type: types.poison,
+        attaque: 60,
+        defense: 44,
+        vitesse: 55,
+        special: 40,
+        hp: 35,
+        image: 'Ekans',
+        capacites: [
+            capacites.morsure,
+            capacites.dardVenin,
+        ],
+    },
+
     Magicarpe: {
         numero: 129,
         nom: 'Magicarpe',
-        niveau: 5,
+        niveau: niveauPokemons,
         type: types.eau,
         attaque: 10,
         defense: 55,
@@ -94,7 +146,7 @@ const pokemons: Pokemons = {
     Leviathor: {
         numero: 130,
         nom: 'Leviathor',
-        niveau: 20,
+        niveau: niveauPokemons,
         type: types.eau,
         attaque: 125,
         defense: 79,
@@ -111,7 +163,7 @@ const pokemons: Pokemons = {
     Alakazam: {
         numero: 65,
         nom: 'Alakazam',
-        niveau: 40,
+        niveau: niveauPokemons,
         type: types.psy,
         attaque: 50,
         defense: 45,
@@ -128,7 +180,7 @@ const pokemons: Pokemons = {
     Ronflex: {
         numero: 143,
         nom: 'Ronflex',
-        niveau: 30,
+        niveau: niveauPokemons,
         type: types.normal,
         attaque: 110,
         defense: 65,
@@ -145,7 +197,7 @@ const pokemons: Pokemons = {
     Rondoudou: {
         numero: 39,
         nom: 'Rondoudou',
-        niveau: 5,
+        niveau: niveauPokemons,
         type: types.normal,
         attaque: 45,
         defense: 20,
@@ -154,14 +206,14 @@ const pokemons: Pokemons = {
         hp: 115,
         image: 'Jigglypuff',
         capacites: [
-            capacites.charme,
+            capacites.charge,
         ],
     },
 
     Miaouss: {
         numero: 52,
         nom: 'Miaouss',
-        niveau: 5,
+        niveau: niveauPokemons,
         type: types.normal,
         attaque: 70,
         defense: 45,
@@ -178,7 +230,7 @@ const pokemons: Pokemons = {
     Chenipan: {
         numero: 10,
         nom: 'Chenipan',
-        niveau: 5,
+        niveau: niveauPokemons,
         type: types.insecte,
         attaque: 30,
         defense: 35,
@@ -191,26 +243,10 @@ const pokemons: Pokemons = {
         ],
     },
 
-    Aspicot: {
-        numero: 13,
-        nom: 'Aspicot',
-        niveau: 5,
-        type: types.insecte,
-        attaque: 40,
-        defense: 35,
-        vitesse: 30,
-        special: 20,
-        hp: 40,
-        image: 'Weedle',
-        capacites: [
-            capacites.dardVenin,
-        ],
-    },
-
     Racaillou: {
         numero: 74,
         nom: 'Racaillou',
-        niveau: 5,
+        niveau: niveauPokemons,
         type: types.roche,
         attaque: 80,
         defense: 100,
@@ -220,6 +256,23 @@ const pokemons: Pokemons = {
         image: 'Geodude',
         capacites: [
             capacites.roulade,
+            capacites.griffe,
+        ],
+    },
+
+    Sandshrew: {
+        numero: 27,
+        nom: 'Sabelette',
+        niveau: niveauPokemons,
+        type: types.sol,
+        attaque: 75,
+        defense: 85,
+        vitesse: 40,
+        special: 30,
+        hp: 50,
+        image: 'Sandshrew',
+        capacites: [
+            capacites.ecrasFace,
             capacites.griffe,
         ],
     },
