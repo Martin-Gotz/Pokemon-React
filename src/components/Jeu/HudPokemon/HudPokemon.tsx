@@ -15,7 +15,7 @@ const HudPokemon: React.FC<HudPokemonProps> = ({typeCote, pokemon, vieRestante})
         if (pokemon.hp_max){
             setPourcentageVie((pokemon.hp/pokemon.hp_max)*100);
         }
-    }, [vieRestante]);
+    }, [vieRestante, pokemon.hp, pokemon.hp_max]);
 
     return (
         <div className={`hud-container hud-${typeCote}-container`}>

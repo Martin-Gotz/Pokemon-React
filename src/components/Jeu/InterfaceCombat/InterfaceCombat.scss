@@ -41,6 +41,21 @@ $largeur-boite-2: 22%;
       color: #ecf0f1;
     }
 
+    &.boite-textuelle {
+      width: 0;
+      height: 89%;
+      padding: 1% 2% 2%;
+      transition: width 0.2s linear;
+      background-color: rgba(91, 140, 140, 0.75);
+      z-index: 32;
+      position: absolute;
+
+      &.depliee {
+        width: 98%;
+        visibility: visible;
+      }
+    }
+
     &.boite-information {
       width: $largeur-boite-2;
       border-top-left-radius: 0;
