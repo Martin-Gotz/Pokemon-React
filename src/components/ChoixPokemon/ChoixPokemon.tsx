@@ -6,19 +6,22 @@ import BarreStatistique from "./BarreStatistique/BarreStatistique";
 
 interface ChoixPokemonProps {
     validerChoixPokemon: (pokemonSelectionne: Pokemon) => void;
+    jouerAudio: () => void;
 }
 
-const ChoixPokemon: React.FC<ChoixPokemonProps> = ({validerChoixPokemon}) => {
+const ChoixPokemon: React.FC<ChoixPokemonProps> = ({validerChoixPokemon, jouerAudio}) => {
     const [pokemonSelectionne, setPokemonSelectionne] = useState<Pokemon | null>(null);
     const [animationEnCours, setAnimationEnCours] = useState(false);
 
     const pokemonsTries = pokemons.sort((a, b) => a.numero - b.numero);
 
     const lancerAnimation = (pokemon: Pokemon) => {
+        jouerAudio();
+
         setAnimationEnCours(true);
         setTimeout(() => {
             validerChoixPokemon(pokemon);
-        }, 900);
+        }, 2000);
     };
 
     const handlePokemonSelection = (pokemon: Pokemon) => {

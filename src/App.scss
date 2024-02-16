@@ -8,17 +8,6 @@
   display: grid;
   place-items: center;
 
-  .logo-pokemon {
-    height: 20%;
-    margin-right: 20px;
-    margin-top: 100px;
-    min-height: 84px;
-  }
-
-  .musique {
-    display: none;
-  }
-
   .arriere-plan-general {
     position: absolute;
     top: 0;
@@ -38,23 +27,9 @@
     border-radius: 2px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   }
-}
 
-.transition-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  background-color: rgb(0, 0, 0);
-  z-index: 100;
-  transition: opacity 0.7s ease-in;
-  visibility: hidden;
-
-  &.transition-animee {
-    visibility: visible;
-    opacity: 100%;
+  .musique {
+    display: none;
   }
 }
 

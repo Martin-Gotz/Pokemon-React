@@ -1,6 +1,6 @@
-import './ComposantPokemon.scss';
+import './PokemonGeneral.scss';
 import HudPokemon from "../HudPokemon/HudPokemon";
-import Pokemon from "../../../models/Pokemon";
+import Pokemon from "../../models/Pokemon";
 import React from "react";
 
 interface ComposantPokemonProps {
@@ -8,7 +8,7 @@ interface ComposantPokemonProps {
     pokemon: Pokemon;
 }
 
-const ComposantPokemon: React.FC<ComposantPokemonProps> = ({typeCote, pokemon}) => {
+const PokemonGeneral: React.FC<ComposantPokemonProps> = ({typeCote, pokemon}) => {
 
     return (
         <div className={`cote cote-${typeCote}`}>
@@ -26,4 +26,4 @@ const ComposantPokemon: React.FC<ComposantPokemonProps> = ({typeCote, pokemon}) 
     );
 }
 
-export default ComposantPokemon;
+export default PokemonGeneral;

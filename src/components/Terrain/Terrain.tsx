@@ -1,5 +1,5 @@
 import './Terrain.scss';
-import ComposantPokemon from "./ComposantPokemon/ComposantPokemon";
+import PokemonGeneral from "../PokemonGeneral/PokemonGeneral";
 import Pokemon from "../../models/Pokemon";
 import React from "react";
 
@@ -11,8 +11,8 @@ interface TerrainProps {
 const Terrain: React.FC<TerrainProps> = ({pokemonJoueur, pokemonAdversaire}) => {
     return (
         <div className={"terrain"}>
-            <ComposantPokemon typeCote={"adversaire"} pokemon={pokemonAdversaire}/>
-            <ComposantPokemon typeCote={"joueur"} pokemon={pokemonJoueur}/>
+            <PokemonGeneral typeCote={"adversaire"} pokemon={pokemonAdversaire}/>
+            <PokemonGeneral typeCote={"joueur"} pokemon={pokemonJoueur}/>
             <img className={"arriere-plan-terrain"} src="/terrain-2.png" alt="terrain"/>
         </div>
     );

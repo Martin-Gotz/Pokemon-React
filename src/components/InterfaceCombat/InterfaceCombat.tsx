@@ -1,4 +1,4 @@
-import './Interface.scss';
+import './InterfaceCombat.scss';
 import React, {useEffect, useState} from "react";
 import Pokemon from "../../models/Pokemon";
 import Capacite from "../../models/Capacite";
@@ -10,7 +10,7 @@ interface InterfaceProps {
     texteEnCours: string;
 }
 
-const Interface: React.FC<InterfaceProps> = ({pokemonJoueur, decisionAttaque, texteEnCours}) => {
+const InterfaceCombat: React.FC<InterfaceProps> = ({pokemonJoueur, decisionAttaque, texteEnCours}) => {
     const [capaciteSurvolee, setCapaciteSurvolee] = useState<Capacite | null>(null);
     const [text, setText] = useState("");
     const [index, setIndex] = useState(0);
@@ -86,4 +86,4 @@ const Interface: React.FC<InterfaceProps> = ({pokemonJoueur, decisionAttaque, te
     );
 }
 
-export default Interface;
+export default InterfaceCombat;

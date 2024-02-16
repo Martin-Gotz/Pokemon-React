@@ -201,4 +201,22 @@ $background-secondaire: #293333;
       }
     }
   }
+
+  .transition-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background: radial-gradient(circle, rgb(51, 51, 51) 0%, rgb(26, 26, 26) 50%, rgb(0, 0, 0) 100%);
+    z-index: 100;
+    transition: opacity 2s ease-in;
+    visibility: hidden;
+
+    &.transition-animee {
+      visibility: visible;
+      opacity: 100%;
+    }
+  }
 }
