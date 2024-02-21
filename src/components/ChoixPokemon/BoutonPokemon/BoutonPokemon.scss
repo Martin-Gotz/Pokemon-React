@@ -14,11 +14,11 @@
   box-sizing: border-box;
   border: 2px solid #526666;
   box-shadow:
-          rgba(30, 36, 43, 0.4) 0 0 0 2px,
-          rgba(30, 36, 43, 0.65) 0 4px 6px -1px,
-          rgba(255, 255, 255, 0.08) 0 1px 0 inset,
-          inset 0 10px 27px -8px rgba(20, 20, 20, 0.75),
-          inset 0 -10px 27px -8px rgba(79, 155, 255, 0.25);
+          rgba(30, 36, 43, 0.2) 0 0 0 2px,
+          rgba(30, 36, 43, 0.35) 0 4px 6px -1px,
+          rgba(255, 255, 255, 0.03) 0 1px 0 inset,
+          inset 0 10px 27px -8px rgba(20, 20, 20, 0.55),
+          inset 0 -10px 27px -8px rgba(79, 155, 255, 0.15);
   font-size: 0.4em;
   padding: 1px;
 
@@ -50,5 +50,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-inline: 10%;
+    border-radius: 10px;
   }
 }

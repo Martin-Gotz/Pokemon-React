@@ -13,7 +13,7 @@ const Terrain: React.FC<TerrainProps> = ({pokemonJoueur, pokemonAdversaire}) => 
         <div className={"terrain"}>
             <PokemonGeneral typeCote={"adversaire"} pokemon={pokemonAdversaire}/>
             <PokemonGeneral typeCote={"joueur"} pokemon={pokemonJoueur}/>
-            <img className={"arriere-plan-terrain"} src="/images/terrain-2.png" alt="terrain"/>
+            <img className={"arriere-plan-terrain"} src="/images/arriere-plan-terrain.png" alt="terrain"/>
         </div>
     );
 }
