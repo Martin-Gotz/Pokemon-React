@@ -6,7 +6,7 @@ import InfosPokemon from "./InfosPokemon/InfosPokemon";
 import ListePokemons from "./ListePokemons/ListePokemons";
 
 interface ChoixPokemonProps {
-    validerChoixPokemon: (pokemonSelectionne: Pokemon) => void;
+    validerChoixPokemon: (pokemonSelectionne: Pokemon, choixPokemonAdversaire: Pokemon) => void;
     jouerAudio: () => void;
 }
 
@@ -16,12 +16,15 @@ const ChoixPokemon: React.FC<ChoixPokemonProps> = ({validerChoixPokemon, jouerAu
 
     const pokemonsTries = pokemons.sort((a, b) => a.numero - b.numero);
 
-    const lancerAnimation = (pokemon: Pokemon) => {
+    const lancerCombat = (pokemonJoueur: Pokemon) => {
         jouerAudio();
 
         setAnimationEnCours(true);
+
+        const pokemonAdversaire = pokemonsTries[Math.floor(Math.random() * pokemonsTries.length)];
+
         setTimeout(() => {
-            validerChoixPokemon(pokemon);
+            validerChoixPokemon(pokemonJoueur, pokemonAdversaire);
         }, 2000);
     };
 
@@ -43,7 +46,7 @@ const ChoixPokemon: React.FC<ChoixPokemonProps> = ({validerChoixPokemon, jouerAu
             </div>
 
             <div className={"conteneur-bouton-valider"}>
-                <div className={`bouton-valider ${pokemonSelectionne ? 'active' : ''}`} onClick={() => pokemonSelectionne && lancerAnimation(pokemonSelectionne)}>Selectionner</div>
+                <div className={`bouton-valider ${pokemonSelectionne ? 'active' : ''}`} onClick={() => pokemonSelectionne && lancerCombat(pokemonSelectionne)}>Selectionner</div>
             </div>
 
             <div className={`transition-overlay ${animationEnCours ? 'transition-animee' : ''}`}></div>

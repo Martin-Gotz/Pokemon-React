@@ -8,9 +8,10 @@ import Type from "../../models/Type";
 interface JeuProps {
     pokemonJoueur: Pokemon;
     pokemonAdversaire: Pokemon;
+    redemarrerJeu: () => void;
 }
 
-const Jeu: React.FC<JeuProps> = ({pokemonJoueur, pokemonAdversaire}) => {
+const Jeu: React.FC<JeuProps> = ({pokemonJoueur, pokemonAdversaire, redemarrerJeu}) => {
     const [jeuFini, setJeuFini] = useState<boolean>(false);
 
     const [numeroTour, setNumeroTour] = useState<number>(1);
@@ -21,7 +22,9 @@ const Jeu: React.FC<JeuProps> = ({pokemonJoueur, pokemonAdversaire}) => {
         await attente();
         setTexteEnCours(`${gagnant.nom} remporte la victoire !`);
         await attente();
+
         setJeuFini(true);
+        redemarrerJeu();
     }
 
 
@@ -56,7 +59,7 @@ const Jeu: React.FC<JeuProps> = ({pokemonJoueur, pokemonAdversaire}) => {
                 await finirCombat(premier, second);
             }
             else {
-                await attaquer(second, premier, joueurPlusRapide ? capaciteChoisieAdversaire : capaciteSecond);
+                await attaquer(second, premier, capaciteSecond);
 
                 if (premier.hp === 0) {
                     await finirCombat(second, premier);
@@ -158,7 +161,6 @@ const Jeu: React.FC<JeuProps> = ({pokemonJoueur, pokemonAdversaire}) => {
             return 1;
         }
     }
-
 
     const afficherTextesAdditionnels = async (critique: boolean, efficacite: "" | "non-efficace" | "peu-efficace" | "super-efficace", defenseur: Pokemon) => {
         if (critique) {

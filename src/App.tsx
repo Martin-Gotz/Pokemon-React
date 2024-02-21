@@ -13,7 +13,14 @@ const App = () => {
 
     const jouerAudio = async () => {
         if (audioRef.current) {
-            //await audioRef.current.play();
+            await audioRef.current.play();
+        }
+    };
+
+    const stopperAudio = async () => {
+        if (audioRef.current) {
+            await audioRef.current.pause();
+            audioRef.current.currentTime = 0;
         }
     };
 
@@ -28,20 +35,25 @@ const App = () => {
         };
     };
 
-    const validerChoixPokemon = async (pokemonSelectionne: Pokemon) => {
+    const validerChoixPokemon = async (pokemonSelectionne: Pokemon, choixPokemonAdversaire: Pokemon) => {
         const initialPokemonJoueur = initialiserPokemon(pokemonSelectionne);
-        const initialPokemonAdversaire = initialiserPokemon(pokemonSelectionne);
+        const initialPokemonAdversaire = initialiserPokemon(choixPokemonAdversaire);
 
         setPokemonJoueur(initialPokemonJoueur);
         setPokemonAdversaire(initialPokemonAdversaire);
         setJeuLance(true);
     }
 
+    const redemarrerJeu = async () => {
+        setJeuLance(false);
+        await stopperAudio();
+    }
+
     return (
         <div className={"pokemon-app"}>
             <div className={"cadre-jeu"}>
                 { jeuLance ? (pokemonJoueur && pokemonAdversaire && (
-                    <Jeu pokemonJoueur={pokemonJoueur} pokemonAdversaire={pokemonAdversaire} />
+                    <Jeu pokemonJoueur={pokemonJoueur} pokemonAdversaire={pokemonAdversaire} redemarrerJeu={redemarrerJeu}/>
                 )) : (
                     <ChoixPokemon validerChoixPokemon={validerChoixPokemon} jouerAudio={jouerAudio}/>
                 )}
