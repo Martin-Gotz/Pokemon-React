@@ -1,0 +1,14 @@
+$couleur-normale: #212a33;
+$couleur-survol: #a1e6e6;
+
+svg {
+  fill: $couleur-normale;
+
+  &:hover {
+    fill: $couleur-survol;
+
+    line {
+      stroke: $couleur-survol;
+    }
+  }
+}

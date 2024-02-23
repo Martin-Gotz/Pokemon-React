@@ -1,12 +1,13 @@
 # Pokémon React
 
-Bienvenue dans Pokémon React ! Ce jeu vous permet d'incarner un dresseur de Pokémon et de combattre d'autres Pokémons pour devenir le meilleur.
+Bienvenue dans Pokémon React ! Incarnez un dresseur de pokemons et combattez !
 
 ## Fonctionnalités
 
-- Choisissez votre Pokémon de départ parmi une sélection variée.
-- Affrontez d'autres Pokémons dans des combats au tour par tour.
-- Utilisez des capacités pour vaincre vos adversaires.
+- Choix du pokémon
+- Combat au tour par tour
+- Utilisation des capacités
+- Différents types et statistiques
 - Gestion de la précision, des coups critiques et de l'efficacité des types.
 
 ## Installation

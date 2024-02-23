@@ -1,15 +1,40 @@
 import './App.scss';
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Pokemon from "./models/Pokemon";
 import ChoixPokemon from "./components/ChoixPokemon/ChoixPokemon";
 import Jeu from "./components/Jeu/Jeu";
+import {urlApi} from "./Config";
+import UseFetchData from "./Utils";
+import IconeVolume from "./components/IconeVolume/IconeVolume";
+import AudioPlayer from "./components/AudioPlayer/AudioPlayer";
 
 const App = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
+    const [muet, setMuet] = useState(false);
+
     const [jeuLance, setJeuLance] = useState<boolean>(false);
 
     const [pokemonJoueur, setPokemonJoueur] = useState<Pokemon | null>(null);
     const [pokemonAdversaire, setPokemonAdversaire] = useState<Pokemon | null>(null);
+
+    const { data: dataPokemon1, loading: loadingPokemon1, error: errorPokemon1 } = UseFetchData(`${urlApi}/pokemon/details/pikachu/100`);
+    const { data: dataPokemon2, loading: loadingPokemon2, error: errorPokemon2 } = UseFetchData(`${urlApi}/pokemon/details/roucoups/100`);
+
+    useEffect(() => {
+        if (dataPokemon1) {
+            console.log(dataPokemon1)
+        }
+        if (dataPokemon2) {
+            console.log(dataPokemon2)
+        }
+    }, [dataPokemon1, dataPokemon2]);
+
+    const toggleMuet = () => {
+        if (audioRef.current) {
+            audioRef.current.muted = !audioRef.current.muted;
+            setMuet(audioRef.current.muted);
+        }
+    };
 
     const jouerAudio = async () => {
         if (audioRef.current) {
@@ -49,8 +74,18 @@ const App = () => {
         await stopperAudio();
     }
 
+    if (loadingPokemon1 || loadingPokemon2) {
+        return <div className={"message-donnees chargement-donnees"}>Chargement...</div>;
+    }
+
+    if (errorPokemon1 && errorPokemon2) {
+        return <div className={"message-donnees erreur-donnees"}>Erreur dans le chargement des données 😥</div>;
+    }
+
     return (
         <div className={"pokemon-app"}>
+            <IconeVolume muet={muet} toggleMuet={toggleMuet}/>
+
             <div className={"cadre-jeu"}>
                 { jeuLance ? (pokemonJoueur && pokemonAdversaire && (
                     <Jeu pokemonJoueur={pokemonJoueur} pokemonAdversaire={pokemonAdversaire} redemarrerJeu={redemarrerJeu}/>
@@ -59,11 +94,7 @@ const App = () => {
                 )}
             </div>
 
-            <div className={"musique"}>
-                <audio ref={audioRef} controls loop>
-                    <source src={`/audio/Wild-Battle.mp3`} type="audio/mp3" />
-                </audio>
-            </div>
+            <AudioPlayer src="/audio/Wild-Battle.mp3" audioRef={audioRef} />
         </div>
     );
 }
