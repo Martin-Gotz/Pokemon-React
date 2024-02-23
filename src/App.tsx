@@ -6,7 +6,7 @@ import Jeu from "./components/Jeu/Jeu";
 import {urlApi} from "./Config";
 import UseFetchData from "./Utils";
 import IconeVolume from "./components/IconeVolume/IconeVolume";
-import AudioPlayer from "./components/AudioPlayer/AudioPlayer";
+import LecteurAudio from "./components/LecteurAudio/LecteurAudio";
 
 const App = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -94,7 +94,7 @@ const App = () => {
                 )}
             </div>
 
-            <AudioPlayer src="/audio/Wild-Battle.mp3" audioRef={audioRef} />
+            <LecteurAudio src="/audio/Wild-Battle.mp3" audioRef={audioRef} />
         </div>
     );
 }

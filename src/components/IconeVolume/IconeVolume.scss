@@ -1,8 +1,10 @@
-$couleur-normale: #212a33;
+$couleur-normale: #080a0d;
 $couleur-survol: #a1e6e6;
 
 svg {
   fill: $couleur-normale;
+  width: 30px;
+  height: 30px;
 
   &:hover {
     fill: $couleur-survol;

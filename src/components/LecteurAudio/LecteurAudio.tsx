@@ -1,12 +1,12 @@
 import React from 'react';
-import "./AudioPlayer.scss";
+import "./LecteurAudio.scss";
 
 interface AudioPlayerProps {
     src: string;
     audioRef: React.RefObject<HTMLAudioElement>;
 }
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, audioRef }) => {
+const LecteurAudio: React.FC<AudioPlayerProps> = ({ src, audioRef }) => {
     return (
         <div className={"musique"}>
             <audio ref={audioRef} controls loop>
@@ -16,4 +16,4 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, audioRef }) => {
     );
 }
 
-export default AudioPlayer;
+export default LecteurAudio;
