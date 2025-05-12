@@ -1,10 +1,8 @@
 import './App.scss';
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import Pokemon from "./models/Pokemon";
 import ChoixPokemon from "./components/ChoixPokemon/ChoixPokemon";
 import Jeu from "./components/Jeu/Jeu";
-import {urlApi} from "./Config";
-import UseFetchData from "./Utils";
 import IconeVolume from "./components/IconeVolume/IconeVolume";
 import LecteurAudio from "./components/LecteurAudio/LecteurAudio";
 
@@ -17,17 +15,9 @@ const App = () => {
     const [pokemonJoueur, setPokemonJoueur] = useState<Pokemon | null>(null);
     const [pokemonAdversaire, setPokemonAdversaire] = useState<Pokemon | null>(null);
 
-    const { data: dataPokemon1, loading: loadingPokemon1, error: errorPokemon1 } = UseFetchData(`${urlApi}/pokemon/details/pikachu/100`);
-    const { data: dataPokemon2, loading: loadingPokemon2, error: errorPokemon2 } = UseFetchData(`${urlApi}/pokemon/details/roucoups/100`);
-
-    useEffect(() => {
-        if (dataPokemon1) {
-            console.log(dataPokemon1)
-        }
-        if (dataPokemon2) {
-            console.log(dataPokemon2)
-        }
-    }, [dataPokemon1, dataPokemon2]);
+    // EXEMPLE D'UTILISATION D'UNE API POUR LES DONNEES
+    // const { data: dataPokemon1, loading: loadingPokemon1, error: errorPokemon1 } = UseFetchData(`${urlApi}/pokemon/details/pikachu/100`);
+    // const { data: dataPokemon2, loading: loadingPokemon2, error: errorPokemon2 } = UseFetchData(`${urlApi}/pokemon/details/roucoups/100`);
 
     const toggleMuet = () => {
         if (audioRef.current) {
@@ -74,6 +64,7 @@ const App = () => {
         await stopperAudio();
     }
 
+    /*
     if (loadingPokemon1 || loadingPokemon2) {
         return <div className={"message-donnees chargement-donnees"}>Chargement...</div>;
     }
@@ -81,6 +72,7 @@ const App = () => {
     if (errorPokemon1 && errorPokemon2) {
         return <div className={"message-donnees erreur-donnees"}>Erreur dans le chargement des données 😥</div>;
     }
+    */
 
     return (
         <div className={"pokemon-app"}>
